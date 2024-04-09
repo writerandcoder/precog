@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <!-- Primary Meta Tags -->
+  <title>PRECOG 1.0</title>
+  <meta name="title" content="PRECOG 1.0" />
+  <meta name="description"
+    content="Score over 80 and your third eye is beaming." />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rickybrowne.com/precog/" />
+  <meta property="og:title" content="PRECOG 1.0" />
+  <meta property="og:description"
+    content="Score over 80 and your third eye is beaming." />
+  <meta property="og:image" content="fb.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://rickybrowne.com/precog/" />
+  <meta property="twitter:title" content="PRECOG 1.0" />
+  <meta property="twitter:description"
+    content="Score over 80 and your third eye is beaming." />
+  <meta property="twitter:image" content="fb.png" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<style>
+    body {
+
+
+background-color: #000000;
+padding: 0px;
+margin: 0px;
+font-family: 'Roboto', sans-serif;
+color: aliceblue;
+font-size: 16px;
+}
+
+
+#gradient {
+      width: 100%;
+      min-height: 100vh;
+      padding: 0px;
+      margin: 0px;
+  text-align: center;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    #grid {
+      width: 312px;
+      height: 312px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    
+
+    }
+    #box {
+      width: 312px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    position: absolute;
+    }
+
+    .score-display {
+
+      text-align: center;
+    
+    }
+
+    h1 {
+      width: 312px;
+      text-align: center;
+      opacity: 0.5;
+    }
+
+    h6 {
+      font-size: 16px;
+      padding: 10px;
+      opacity: 0.5;
+    }
+
+    @keyframes beat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.01); }
+    100% { transform: scale(1); }
+}
+
+.beat {
+    display: inline-block;
+    animation: beat 2s infinite;
+}
+
+</style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CJR7KVFVQM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-F70H7CX161');
+</script>
+<body>
+  <div id="gradient"><div id="box">
+    <div class="score-display">
+        <h1>PRECOG 1.0</h1>
+        
+        </div><br />
+
+        <div id="grid"  align="center" class="beat" ></div>
+
+        <div class="score-display">
+          <h6 id="txt" align="center" >You have 16 chances at selecting the chosen image.<br /><br /><i>A score of anything over 80 is great.</i></h6>
+          
+          
+          </div>
+        </div>
+</div>
+        <script>
+        
+        let images = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png", "10.png", "11.png", "12.png", "13.png", "14.png", "15.png", "16.png"];
+         
+        let tots = 0;
+        let clicks = 0;
+        
+        function shuffle(array) {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }
+          return array;
+        }
+        
+        images = shuffle(images);
+        let grid = document.getElementById("grid");
+        
+        for (let i = 0; i < images.length; i++) {
+          let img = document.createElement("img");
+          img.src = "https://rickybrowne.com/precog/" + images[i];
+          img.style.width = "77px";
+          img.style.height = "77px";
+          img.onclick = function() {
+            checkWin(this);
+          };
+          img.classList.add(images[i].split('.')[0]); // add class based on file name
+          grid.appendChild(img);
+        }
+        
+          
+        
+          function checkWin(clickedImg) {
+          let randomNum = Math.floor(Math.random() * 16) + 1;
+          let clickedNum = Number(clickedImg.src.slice(-5, -4));
+        
+        let img1 = document.getElementsByClassName(randomNum);
+        var element = img1[0];
+            element.style.opacity = "0.4";  
+            setTimeout(function() {
+             element.style.opacity = "1"; // Remove border after 1 second
+            }, 1000);
+        
+        
+        
+          if (clickedNum === randomNum) {
+             
+        
+            tots += 16;
+          } else if (clickedNum === (randomNum + 1) % 16 || clickedNum === (randomNum + 15) % 16) {
+             
+        
+            tots += 8;
+          } else if (clickedNum === (randomNum + 2) % 16 || clickedNum === (randomNum + 14) % 16) {
+        
+            tots += 4;
+          } else if (clickedNum === (randomNum + 3) % 16 || clickedNum === (randomNum + 13) % 16) {
+        
+            tots += 2;
+          } else if (clickedNum === (randomNum + 4) % 16 || clickedNum === (randomNum + 12) % 16) {
+           document.getE    
+        
+            tots += 1;
+          } else {
+        
+        
+          }
+        
+         
+        
+          clicks++;
+          if (clicks === 16) {
+            alert("Total score: " + tots + " of a possible 256");
+            location.reload();
+          }
+        }
+        
+
+
+        var colors = new Array(
+      [40, 35, 2],
+      [40, 255, 6],
+      [77, 35, 9],
+      [77, 175, 2],
+      [156, 0, 5],
+      [15, 128, 0]);
+
+    var step = 0;
+    //color table indices for: 
+    // current color left
+    // next color left
+    // current color right
+    // next color right
+    var colorIndices = [0, 1, 2, 3];
+
+    //transition speed
+    var gradientSpeed = 0.002;
+
+    function updateGradient() {
+
+      if ($ === undefined) return;
+
+      var c0_0 = colors[colorIndices[0]];
+      var c0_1 = colors[colorIndices[1]];
+      var c1_0 = colors[colorIndices[2]];
+      var c1_1 = colors[colorIndices[3]];
+
+      var istep = 1 - step;
+      var r1 = Math.round(istep * c0_0[0] + step * c0_1[0]);
+      var g1 = Math.round(istep * c0_0[1] + step * c0_1[1]);
+      var b1 = Math.round(istep * c0_0[2] + step * c0_1[2]);
+      var color1 = "rgb(" + r1 + "," + g1 + "," + b1 + ")";
+
+      var r2 = Math.round(istep * c1_0[0] + step * c1_1[0]);
+      var g2 = Math.round(istep * c1_0[1] + step * c1_1[1]);
+      var b2 = Math.round(istep * c1_0[2] + step * c1_1[2]);
+      var color2 = "rgb(" + r2 + "," + g2 + "," + b2 + ")";
+
+      $('#gradient').css({
+        background: "-webkit-gradient(linear, left top, right top, from(" + color1 + "), to(" + color2 + "))"
+      }).css({
+        background: "-moz-linear-gradient(left, " + color1 + " 0%, " + color2 + " 100%)"
+      });
+
+      step += gradientSpeed;
+      if (step >= 1) {
+        step %= 1;
+        colorIndices[0] = colorIndices[1];
+        colorIndices[2] = colorIndices[3];
+
+        //pick two new target color indices
+        //do not pick the same as the current one
+        colorIndices[1] = (colorIndices[1] + Math.floor(1 + Math.random() * (colors.length - 1))) % colors.length;
+        colorIndices[3] = (colorIndices[3] + Math.floor(1 + Math.random() * (colors.length - 1))) % colors.length;
+
+      }
+    }
+
+    setInterval(updateGradient, 10);
+          </script>
+</body>
+</html>
